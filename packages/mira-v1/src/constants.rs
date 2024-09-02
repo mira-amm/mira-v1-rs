@@ -1,5 +1,2 @@
-use fuels::prelude::ContractId;
-
-pub const DEFAULT_AMM_CONTRACT_ID: ContractId =
-    ContractId::from("0xb942cd8440a4fe2e2e7548cfcb1d1547881cfe02db66a463b19e1e46ae56f0ca");
+pub const DEFAULT_AMM_CONTRACT_ID: &str = "0xd5a716d967a9137222219657d7877bd8c79c64e1edb5de9f2901c98ebe74da80";
 pub const READONLY_PRIVATE_KEY: &str = "0xf2331315499db8ff7868636f12863d514fd232dbbff1510043e78bc248c79e84";

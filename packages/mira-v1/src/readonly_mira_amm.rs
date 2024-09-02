@@ -1,7 +1,7 @@
 use crate::constants::{DEFAULT_AMM_CONTRACT_ID, READONLY_PRIVATE_KEY};
 use crate::interface::{AmmFees, Asset, LpAssetInfo, MiraAmmContract, PoolId, PoolMetadata, State};
 use fuels::crypto::SecretKey;
-use fuels::prelude::{AssetId, Bech32ContractId, Execution, Provider, Result, WalletUnlocked};
+use fuels::prelude::{AssetId, Bech32ContractId, Execution, Provider, Result, TxPolicies, WalletUnlocked};
 use fuels::types::{ContractId, Identity};
 use std::str::FromStr;
 
@@ -10,11 +10,15 @@ pub struct ReadonlyMiraAmm {
     amm_contract: MiraAmmContract<WalletUnlocked>,
 }
 
+fn sufficient_tx_policies() -> TxPolicies {
+    TxPolicies::default().with_max_fee(1_000_000_000)
+}
+
 impl ReadonlyMiraAmm {
     pub fn connect(provider: &Provider, contract_id: Option<ContractId>) -> Result<Self> {
         let readonly_secret_key = SecretKey::from_str(READONLY_PRIVATE_KEY)?;
         let readonly_wallet = WalletUnlocked::new_from_private_key(readonly_secret_key, Some(provider.clone()));
-        let amm_contract = MiraAmmContract::new(contract_id.unwrap_or(DEFAULT_AMM_CONTRACT_ID), readonly_wallet);
+        let amm_contract = MiraAmmContract::new(contract_id.unwrap_or(ContractId::from_str(DEFAULT_AMM_CONTRACT_ID).unwrap()), readonly_wallet);
 
         Ok(Self {
             provider: provider.clone(),
@@ -30,6 +34,7 @@ impl ReadonlyMiraAmm {
         Ok(self.amm_contract
             .methods()
             .pool_metadata(pool_id)
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value)
@@ -39,6 +44,7 @@ impl ReadonlyMiraAmm {
         let (lp_fee_volatile, lp_fee_stable, protocol_fee_volatile, protocol_fee_stable) = self.amm_contract
             .methods()
             .fees()
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
@@ -54,6 +60,7 @@ impl ReadonlyMiraAmm {
         Ok(self.amm_contract
             .methods()
             .hook()
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value)
@@ -63,6 +70,7 @@ impl ReadonlyMiraAmm {
         Ok(self.amm_contract
             .methods()
             .total_assets()
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value)
@@ -72,24 +80,28 @@ impl ReadonlyMiraAmm {
         let name = self.amm_contract
             .methods()
             .name(asset_id)
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
         let symbol = self.amm_contract
             .methods()
             .symbol(asset_id)
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
         let decimals = self.amm_contract
             .methods()
             .decimals(asset_id)
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
         let total_supply = self.amm_contract
             .methods()
             .total_supply(asset_id)
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
@@ -112,6 +124,7 @@ impl ReadonlyMiraAmm {
         let ownership_state = self.amm_contract
             .methods()
             .owner()
+            .with_tx_policies(sufficient_tx_policies())
             .simulate(Execution::StateReadOnly)
             .await?
             .value;
