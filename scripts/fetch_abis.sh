@@ -17,18 +17,18 @@ forc build --release
 
 cd ../..
 
-mkdir -p sway_abis/mira_amm_contract
-mkdir -p sway_abis/add_liquidity_script
-mkdir -p sway_abis/create_pool_and_add_liquidity_script
-mkdir -p sway_abis/remove_liquidity_script
-mkdir -p sway_abis/swap_exact_input_script
-mkdir -p sway_abis/swap_exact_output_script
+mkdir -p packages/mira-v1/sway-abis/mira_amm_contract
+mkdir -p packages/mira-v1/sway-abis/add_liquidity_script
+mkdir -p packages/mira-v1/sway-abis/create_pool_and_add_liquidity_script
+mkdir -p packages/mira-v1/sway-abis/remove_liquidity_script
+mkdir -p packages/mira-v1/sway-abis/swap_exact_input_script
+mkdir -p packages/mira-v1/sway-abis/swap_exact_output_script
 
-mv -f tmp_abis/mira-v1-core/contracts/mira_amm_contract/out/release/ sway_abis/mira_amm_contract
-mv -f tmp_abis/mira-v1-periphery/scripts/add_liquidity_script/out/release/ sway_abis/add_liquidity_script
-mv -f tmp_abis/mira-v1-periphery/scripts/create_pool_and_add_liquidity_script/out/release/ sway_abis/create_pool_and_add_liquidity_script
-mv -f tmp_abis/mira-v1-periphery/scripts/remove_liquidity_script/out/release/ sway_abis/remove_liquidity_script
-mv -f tmp_abis/mira-v1-periphery/scripts/swap_exact_input_script/out/release/ sway_abis/swap_exact_input_script
-mv -f tmp_abis/mira-v1-periphery/scripts/swap_exact_output_script/out/release/ sway_abis/swap_exact_output_script
+mv -f tmp_abis/mira-v1-core/contracts/mira_amm_contract/out/release/ packages/mira-v1/sway-abis/mira_amm_contract
+mv -f tmp_abis/mira-v1-periphery/scripts/add_liquidity_script/out/release/ packages/mira-v1/sway-abis/add_liquidity_script
+mv -f tmp_abis/mira-v1-periphery/scripts/create_pool_and_add_liquidity_script/out/release/ packages/mira-v1/sway-abis/create_pool_and_add_liquidity_script
+mv -f tmp_abis/mira-v1-periphery/scripts/remove_liquidity_script/out/release/ packages/mira-v1/sway-abis/remove_liquidity_script
+mv -f tmp_abis/mira-v1-periphery/scripts/swap_exact_input_script/out/release/ packages/mira-v1/sway-abis/swap_exact_input_script
+mv -f tmp_abis/mira-v1-periphery/scripts/swap_exact_output_script/out/release/ packages/mira-v1/sway-abis/swap_exact_output_script
 
 rm -rf tmp_abis
