@@ -23,3 +23,4 @@ tokio = { workspace = true }
 fuels = { workspace = true }
 rand = { workspace = true }
 sha2 = { workspace = true }
+primitive-types = { workspace = true }
