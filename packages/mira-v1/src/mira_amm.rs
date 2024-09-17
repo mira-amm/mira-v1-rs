@@ -1,5 +1,5 @@
 use crate::constants::DEFAULT_AMM_CONTRACT_ID;
-use crate::interface::{AddLiquidityScript, AddLiquidityScriptConfigurables, Asset, MiraAmmContract, MiraAmmContractConfigurables, PoolId, RemoveLiquidityScript, RemoveLiquidityScriptConfigurables, SwapExactInputScript, SwapExactInputScriptConfigurables, SwapExactOutputScript, SwapExactOutputScriptConfigurables, ADD_LIQUIDITY_SCRIPT_BINARY_PATH, AMM_CONTRACT_BINARY_PATH, REMOVE_LIQUIDITY_SCRIPT_BINARY_PATH, SWAP_EXACT_INPUT_SCRIPT_BINARY_PATH, SWAP_EXACT_OUTPUT_SCRIPT_BINARY_PATH};
+use crate::interface::{AddLiquidityScript, AddLiquidityScriptConfigurables, MiraAmmContract, MiraAmmContractConfigurables, PoolId, RemoveLiquidityScript, RemoveLiquidityScriptConfigurables, SwapExactInputScript, SwapExactInputScriptConfigurables, SwapExactOutputScript, SwapExactOutputScriptConfigurables, ADD_LIQUIDITY_SCRIPT_BINARY_PATH, AMM_CONTRACT_BINARY_PATH, REMOVE_LIQUIDITY_SCRIPT_BINARY_PATH, SWAP_EXACT_INPUT_SCRIPT_BINARY_PATH, SWAP_EXACT_OUTPUT_SCRIPT_BINARY_PATH};
 use crate::utils::{get_asset_id_in, get_lp_asset_id, get_transaction_inputs_outputs};
 use fuels::prelude::{AssetId, Bech32ContractId, Contract, LoadConfiguration, Result, ScriptTransaction, TxPolicies, VariableOutputPolicy, ViewOnlyAccount, WalletUnlocked};
 use fuels::types::ContractId;
