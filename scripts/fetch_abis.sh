@@ -2,6 +2,7 @@
 
 set -ex
 
+rm -rf packages/mira-v1/sway-abis
 mkdir -p tmp_abis
 cd tmp_abis
 
