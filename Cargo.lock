@@ -1899,7 +1899,7 @@ dependencies = [
 
 [[package]]
 name = "mira-v1"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "fuels",
  "primitive-types 0.13.1",
