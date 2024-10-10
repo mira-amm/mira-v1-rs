@@ -220,8 +220,7 @@ pub fn get_amounts_out(
                 pow_decimals(pool.decimals_0),
                 subtract_fee(amount_in, fee).into(),
             )
-        };
-        let amount_out = amount_out?;
+        }?;
 
         let asset_out = if pool_id.0 == asset_in {
             pool_id.1
@@ -280,8 +279,7 @@ pub fn get_amounts_in(
                 pow_decimals(pool.decimals_1),
                 amount_out.into(),
             )
-        };
-        let amount_in = amount_in?;
+        }?;
 
         let asset_in = if pool_id.0 == asset_out {
             pool_id.1
