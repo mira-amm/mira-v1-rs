@@ -158,7 +158,7 @@ pub fn get_amount_in(
             pow_decimals_out,
         );
 
-        let amount_out_adjusted = adjust(output_amount, pow_decimals_in);
+        let amount_out_adjusted = adjust(output_amount, pow_decimals_out);
         let reserve_in_adjusted = adjust(reserve_in, pow_decimals_in);
         let reserve_out_adjusted = adjust(reserve_out, pow_decimals_out);
         let y = get_y(
