@@ -38,7 +38,7 @@ fn d(x_0: U256, y: U256) -> U256 {
 }
 
 fn f(x_0: U256, y: U256) -> U256 {
-    x_0 * (y * y / one_e_18() * y / one_e_18()) / one_e_18() + (x_0 * x_0 / one_e_18() * x_0 / one_e_18()) * y / one_e_18()
+    x_0 * (y * y / one_e_18() * y / one_e_18()) + (x_0 * x_0 / one_e_18() * x_0 / one_e_18()) * y
 }
 
 fn subtract_fee(amount: u64, fee: u64) -> u64 {
@@ -69,10 +69,10 @@ fn get_y(x_0: U256, xy: U256, y: U256) -> U256 {
         let y_prev = y;
         let k = f(x_0, y);
         if k < xy {
-            let dy = (xy - k) * one_e_18() / d(x_0, y);
+            let dy = (xy - k) / d(x_0, y);
             y = y + dy;
         } else {
-            let dy = (k - xy) * one_e_18() / d(x_0, y);
+            let dy = (k - xy) / d(x_0, y);
             y = y - dy;
         }
         if y > y_prev {
@@ -101,7 +101,7 @@ fn k(
         let _y: U256 = y * one_e_18() / pow_decimals_y;
         let _a: U256 = (_x * _y) / one_e_18();
         let _b: U256 = ((_x * _x) / one_e_18() + (_y * _y) / one_e_18());
-        _a * _b / one_e_18() // x3y+y3x >= k
+        _a * _b // x3y+y3x >= k
     } else {
         x * y // xy >= k
     }
