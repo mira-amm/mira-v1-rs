@@ -62,31 +62,35 @@ fn calculate_fee_to_add(amount: u64, fee_bp: u64) -> u64 {
     u64::try_from(fee).unwrap()
 }
 
-fn get_y(x_0: U256, xy: U256, y: U256) -> U256 {
+fn get_y(x_0: U256, xy: U256, y: U256) -> Result<U256, Error> {
     let mut y: U256 = y;
     let mut i = 0;
     while i < 255 {
         let y_prev = y;
         let k = f(x_0, y);
         if k < xy {
-            let dy = (xy - k) / d(x_0, y);
+            let d = d(x_0, y);
+            ensure!(!d.is_zero(), "Router: GET_Y_FAILED");
+            let dy = (xy - k) / d;
             y = y + dy;
         } else {
-            let dy = (k - xy) / d(x_0, y);
+            let d = d(x_0, y);
+            ensure!(!d.is_zero(), "Router: GET_Y_FAILED");
+            let dy = (k - xy) / d;
             y = y - dy;
         }
         if y > y_prev {
             if y - y_prev <= U256::from(1) {
-                return y;
+                return Ok(y);
             }
         } else {
             if y_prev - y <= U256::from(1) {
-                return y;
+                return Ok(y);
             }
         }
         i += 1;
     }
-    y
+    Ok(y)
 }
 
 fn k(
@@ -132,7 +136,7 @@ pub fn get_amount_out(
             amount_in_adjusted + reserve_in_adjusted,
             xy,
             reserve_out_adjusted,
-        );
+        )?;
         Ok(y * pow_decimals_out / one_e_18())
     } else {
         Ok(input_amount * reserve_out / (reserve_in + input_amount))
@@ -165,7 +169,7 @@ pub fn get_amount_in(
             reserve_out_adjusted - amount_out_adjusted,
             xy,
             reserve_in_adjusted,
-        ) - reserve_in_adjusted;
+        )? - reserve_in_adjusted;
         Ok(
             rounding_up_division(y * pow_decimals_in, one_e_18())
         )
